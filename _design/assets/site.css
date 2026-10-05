@@ -1,0 +1,433 @@
+/*
+  Layout: the home page is one sheet of paper on a dark desk. Every other page
+  is that sheet read up close: a single left-aligned column of large serif type.
+*/
+:root {
+  --paper: #ffffff;          /* pages and the top sheet */
+  --paper-under: #e6e8ee;    /* the sheets beneath it */
+  --ink: #14213d;            /* text and outlines */
+  --ink-soft: #46506a;       /* secondary text */
+  --desk: #14213d;           /* the home page surface */
+  --desk-light: rgba(255, 255, 255, 0.09);
+  --shadow: rgba(3, 8, 20, 0.42);
+  --mark: #ffe15c;           /* the highlighter */
+  --serif: "Literata", Georgia, "Times New Roman", serif;
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+  --band: inset 0 -0.46em 0 var(--mark);
+  --band-off: inset 0 -0.46em 0 transparent;
+  color-scheme: light;
+}
+
+/* Literata, served from this site. The second pair covers accented names. */
+@font-face {
+  font-family: "Literata";
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("fonts/literata-latin-ext-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Literata";
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("fonts/literata-latin-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Literata";
+  font-style: italic;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("fonts/literata-latin-ext-italic.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Literata";
+  font-style: italic;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("fonts/literata-latin-italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.1875rem;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+blockquote,
+figure {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* ---------- The highlighter ----------
+   A band of colour behind the lower half of a line, as if marked by hand.
+   It appears on hover, and stays on for the page you are on. */
+
+.site-nav a > span,
+.title a,
+.crumb a {
+  box-shadow: var(--band-off);
+  transition: box-shadow 0.12s ease-out;
+}
+
+.site-nav a:hover > span,
+.site-nav a[aria-current] > span,
+.title a:hover,
+.title a:focus-visible,
+.crumb a:hover,
+.piece-end a,
+.prose a,
+.home-name > span {
+  box-shadow: var(--band);
+}
+
+/* ---------- Home: a sheet of paper on a desk ---------- */
+
+.site {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.desk {
+  position: relative;
+  flex: 1 0 auto;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding-block: clamp(2rem, 7vh, 4.5rem);
+  padding-inline: 1.25rem;
+  background-color: var(--desk);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(80rem 50rem at 12% -12%, var(--desk-light), transparent 62%);
+}
+
+.stack {
+  position: relative;
+  width: min(100%, 27.5rem);
+}
+
+.sheet {
+  border-radius: 2px;
+}
+
+.sheet--under {
+  position: absolute;
+  inset: 0;
+  background: var(--paper-under);
+  box-shadow: 0 0.75rem 1.75rem var(--shadow);
+}
+
+.sheet--a {
+  transform: rotate(-2.6deg) translate(-0.4rem, 0.45rem);
+}
+
+.sheet--b {
+  transform: rotate(1.7deg) translate(0.45rem, 0.2rem);
+}
+
+.sheet--top {
+  position: relative;
+  min-height: min(38rem, calc(100vh - 8rem));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3rem;
+  padding-block: clamp(2.25rem, 7vw, 3.5rem) clamp(1.5rem, 6vw, 3rem);
+  padding-inline: clamp(1.5rem, 6vw, 3rem);
+  background: var(--paper);
+  box-shadow: 0 1px 2px var(--shadow), 0 1rem 2.25rem var(--shadow);
+}
+
+.home-name {
+  font-size: clamp(2.25rem, 9vw, 3rem);
+  line-height: 1.12;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.home-nav {
+  display: grid;
+  gap: 0.875rem;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  min-height: 4rem;
+  padding-inline: 1.375rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 2px;
+  background: var(--paper);
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: background-color 0.12s ease-out;
+}
+
+.button:hover,
+.button:focus-visible {
+  background: var(--mark);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.pencil {
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 17.75rem);
+  width: 1.375rem;
+  height: 26.25rem;
+  margin-top: -12.5rem;
+  transform: rotate(-7deg);
+  filter: drop-shadow(0.5rem 0.6rem 0.5rem var(--shadow));
+}
+
+@media (max-width: 56rem) {
+  .pencil {
+    display: none;
+  }
+}
+
+/* ---------- Inside pages: header, column, footer ---------- */
+
+.wrap {
+  width: 100%;
+  max-width: 70rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 2rem;
+  padding-block: 1rem;
+}
+
+.site-name {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.75rem;
+  font-size: 1.0625rem;
+}
+
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+.page {
+  flex: 1 0 auto;
+  padding-block: clamp(2.5rem, 7vw, 5.5rem) 0;
+}
+
+.site-footer {
+  padding-block: clamp(3.5rem, 9vw, 7rem) 2rem;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- A section: its titles, one under another ---------- */
+
+.section-name {
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  line-height: 1.3;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.titles {
+  list-style: none;
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 2.75rem);
+  margin-top: clamp(1.75rem, 4vw, 3rem);
+  padding: 0;
+}
+
+.title {
+  max-width: 28ch;
+  font-size: clamp(2rem, 5.2vw, 3.5rem);
+  line-height: 1.14;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.by {
+  margin-top: 0.4rem;
+  font-size: 1.125rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+.empty {
+  margin-top: 2rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+/* ---------- A piece of writing ---------- */
+
+.crumb {
+  font-size: 1.125rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+.piece-title {
+  max-width: 24ch;
+  font-size: clamp(2.25rem, 5.4vw, 3.75rem);
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.crumb + .piece-title {
+  margin-top: 0.6rem;
+}
+
+.piece-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.25rem;
+  margin-top: 1.1rem;
+  font-size: 1.125rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+.prose {
+  max-width: 40rem;
+  margin-top: clamp(2rem, 5vw, 3.25rem);
+  font-size: clamp(1.1875rem, 1.55vw, 1.3125rem);
+  line-height: 1.7;
+}
+
+.prose > * + * {
+  margin-top: 1.2em;
+}
+
+.prose h2 {
+  margin-top: 2em;
+  font-size: 1.45em;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.prose h3 {
+  margin-top: 1.8em;
+  font-size: 1.15em;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.prose h2 + *,
+.prose h3 + * {
+  margin-top: 0.6em;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.3em;
+}
+
+.prose li + li {
+  margin-top: 0.4em;
+}
+
+.prose blockquote {
+  padding-left: 1.6em;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+.prose img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.prose hr {
+  height: auto;
+  border: 0;
+  text-align: center;
+}
+
+.prose hr::before {
+  content: "* * *";
+  letter-spacing: 0.4em;
+  color: var(--ink-soft);
+}
+
+.prose pre {
+  overflow-x: auto;
+  font-size: 0.85em;
+}
+
+.piece-end {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 600;
+}

@@ -1,0 +1,19 @@
+---
+layout: inner.njk
+---
+<h1 class="section-name">{{ displayTitle }}</h1>
+{%- set pieces = collections[list] %}
+{%- if pieces and pieces.length %}
+<ul class="titles">
+{%- for piece in pieces %}
+<li>
+<h2 class="title"><a href="{{ piece.url }}">{{ piece.data.displayTitle }}</a></h2>
+{%- if piece.data.author %}
+<p class="by">{{ piece.data.author }}</p>
+{%- endif %}
+</li>
+{%- endfor %}
+</ul>
+{%- else %}
+<p class="empty">Nothing here yet.</p>
+{%- endif %}

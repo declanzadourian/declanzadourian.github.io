@@ -1,0 +1,18 @@
+---
+layout: base.njk
+---
+<div class="site">
+<header class="site-header wrap">
+<a class="site-name" href="/">{{ site.title }}</a>
+<nav class="site-nav" aria-label="Main">
+{%- for key in site.nav %}
+{%- set item = site.pages[key] %}
+<a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% elif page.url and page.url.startsWith(item.url) %} aria-current="true"{% endif %}><span>{{ item.label }}</span></a>
+{%- endfor %}
+</nav>
+</header>
+<main class="page wrap">
+{{ content | safe }}
+</main>
+<footer class="site-footer wrap">© {{ build.year }} {{ site.title }}</footer>
+</div>

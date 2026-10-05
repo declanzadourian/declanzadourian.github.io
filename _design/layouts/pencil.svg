@@ -1,0 +1,12 @@
+<svg class="pencil" viewBox="0 0 22 420" width="22" height="420" aria-hidden="true" focusable="false">
+<rect x="1" y="44" width="6.6" height="330" fill="#d9a514"></rect>
+<rect x="7.6" y="44" width="6.8" height="330" fill="#f5c72e"></rect>
+<rect x="14.4" y="44" width="6.6" height="330" fill="#c08f0c"></rect>
+<path d="M1 46 Q4.3 53 7.6 46 Q11 53 14.4 46 Q17.7 53 21 46 L13.6 10 L8.4 10 Z" fill="#ecd0aa"></path>
+<path d="M8.4 10 L11 0 L13.6 10 Z" fill="#5c6172"></path>
+<rect x="0.5" y="372" width="21" height="26" rx="1" fill="#c9ced6"></rect>
+<rect x="0.5" y="377" width="21" height="2" fill="#8f97a4"></rect>
+<rect x="0.5" y="384" width="21" height="2" fill="#8f97a4"></rect>
+<rect x="0.5" y="391" width="21" height="2" fill="#8f97a4"></rect>
+<path d="M1.5 398 H20.5 V413 Q20.5 419 14.5 419 H7.5 Q1.5 419 1.5 413 Z" fill="#e7a2a8"></path>
+</svg>

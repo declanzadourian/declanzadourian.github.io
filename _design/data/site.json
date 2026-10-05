@@ -1,0 +1,10 @@
+{
+  "title": "Declan Zadourian",
+  "description": "Book reviews and opinion by Declan Zadourian.",
+  "nav": ["about", "book-reviews", "opinion"],
+  "pages": {
+    "about": { "label": "About me", "url": "/about/" },
+    "book-reviews": { "label": "Book reviews", "url": "/book-reviews/", "all": "All book reviews" },
+    "opinion": { "label": "Opinion", "url": "/opinion/", "all": "All opinion pieces" }
+  }
+}

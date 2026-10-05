@@ -1,0 +1,20 @@
+---
+layout: base.njk
+---
+<div class="site site--home">
+<main class="desk">
+<div class="stack">
+<div class="sheet sheet--under sheet--a" aria-hidden="true"></div>
+<div class="sheet sheet--under sheet--b" aria-hidden="true"></div>
+<div class="sheet sheet--top">
+<h1 class="home-name"><span>{{ site.title }}</span></h1>
+<nav class="home-nav" aria-label="Sections">
+{%- for key in site.nav %}
+<a class="button" href="{{ site.pages[key].url }}">{{ site.pages[key].label }}</a>
+{%- endfor %}
+</nav>
+</div>
+</div>
+{% include "pencil.svg" %}
+</main>
+</div>

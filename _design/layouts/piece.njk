@@ -1,0 +1,18 @@
+---
+layout: inner.njk
+---
+{%- set parent = site.pages[section] %}
+<article>
+<p class="crumb"><a href="{{ parent.url }}">{{ parent.label }}</a></p>
+<h1 class="piece-title">{{ displayTitle }}</h1>
+<p class="piece-meta">
+{%- if author %}
+<span>by {{ author }}</span>
+{%- endif %}
+<time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time>
+</p>
+<div class="prose">
+{{ content | safe }}
+</div>
+<p class="piece-end"><a href="{{ parent.url }}">{{ parent.all }}</a></p>
+</article>
